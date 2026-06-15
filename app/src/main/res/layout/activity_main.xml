@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/app_name"
+            app:titleTextColor="@android:color/white"
+            android:background="#6200EE" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- 顶部对比总览卡片 -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:clipToPadding="false"
+        android:paddingBottom="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- 对比总览表标题 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📊 五函数对比总览"
+                android:textSize="18sp"
+                android:textColor="#333"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
+
+            <!-- 对比表格 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                android:layout_marginBottom="20dp">
+
+                <include layout="@layout/table_comparison" />
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- 选择决策图标题 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🧭 如何快速选择？"
+                android:textSize="18sp"
+                android:textColor="#333"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
+
+            <!-- 决策图 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:background="#FFF8E1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="返回对象本身？"
+                        android:textSize="15sp"
+                        android:textColor="#E65100"
+                        android:textStyle="bold"
+                        android:fontFamily="monospace" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="├── 是 → 用 this 引用？"
+                        android:textSize="14sp"
+                        android:textColor="#555"
+                        android:fontFamily="monospace"
+                        android:layout_marginLeft="8dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="│   ├── 是 → apply（对象初始化）"
+                        android:textSize="14sp"
+                        android:textColor="#1B5E20"
+                        android:fontFamily="monospace"
+                        android:layout_marginLeft="24dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="│   └── 否 → also（附加操作）"
+                        android:textSize="14sp"
+                        android:textColor="#1B5E20"
+                        android:fontFamily="monospace"
+                        android:layout_marginLeft="24dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="└── 否 → 返回 Lambda 结果"
+                        android:textSize="14sp"
+                        android:textColor="#555"
+                        android:fontFamily="monospace"
+                        android:layout_marginLeft="8dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="    ├── 用 this？→是扩展？"
+                        android:textSize="14sp"
+                        android:textColor="#555"
+                        android:fontFamily="monospace"
+                        android:layout_marginLeft="24dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="    │   ├── 是 → run"
+                        android:textSize="14sp"
+                        android:textColor="#0D47A1"
+                        android:fontFamily="monospace"
+                        android:layout_marginLeft="40dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="    │   └── 否 → with"
+                        android:textSize="14sp"
+                        android:textColor="#0D47A1"
+                        android:fontFamily="monospace"
+                        android:layout_marginLeft="40dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="    └── 否 → let（用 it）"
+                        android:textSize="14sp"
+                        android:textColor="#0D47A1"
+                        android:fontFamily="monospace"
+                        android:layout_marginLeft="24dp" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- 详情页面入口标题 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📖 全部知识点（点击卡片进入详情）"
+                android:textSize="18sp"
+                android:textColor="#333"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
+
+            <!-- 列表入口 -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

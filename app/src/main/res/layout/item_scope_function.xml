@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    item_scope_function.xml — 主页列表的单个卡片布局（同时用于作用域函数和通用知识点）
+
+    卡片结构（从左到右）：
+    ┌───────────────────────────────────────────────────┐
+    │  ┌──────┐                                        │
+    │  │ let  │  let                            →     │
+    │  │ 图标 │  使用 it 引用对象，返回 Lambda 结果...  │
+    │  └──────┘  [作用域函数]                          │
+    │            ─ 函数名  ─ 分类标签 ─     ─ 箭头 ─   │
+    └───────────────────────────────────────────────────┘
+-->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="#FFFFFF"
+    android:layout_marginBottom="12dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
+
+        <!-- 图标区 -->
+        <LinearLayout
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <!-- 圆形图标 — 文字和颜色由 Kotlin 代码动态设置 -->
+            <TextView
+                android:id="@+id/tvIcon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:text="let"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#FFF"
+                android:gravity="center"
+                android:background="@drawable/bg_circle" />
+        </LinearLayout>
+
+        <!-- 内容区 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="8dp">
+
+            <!-- 标题 -->
+            <TextView
+                android:id="@+id/tvName"
+                android:text="let"
+                android:textSize="17sp"
+                android:textColor="#333"
+                android:textStyle="bold" />
+
+            <!-- 简介（最多两行） -->
+            <TextView
+                android:id="@+id/tvBrief"
+                android:text="简介"
+                android:textSize="13sp"
+                android:textColor="#777"
+                android:layout_marginTop="4dp"
+                android:maxLines="2"
+                android:ellipsize="end" />
+
+            <!-- 底部：分类标签 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="6dp">
+
+                <TextView
+                    android:id="@+id/tvCategory"
+                    android:text="作用域函数"
+                    android:textSize="11sp"
+                    android:textColor="#1565C0"
+                    android:background="@drawable/bg_tag_blue"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="2dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- 箭头 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="→"
+            android:textSize="20sp"
+            android:textColor="#CCC" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

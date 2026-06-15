@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    item_post.xml — 文章列表的单个条目布局
+
+    ┌──────────────────────────────────────┐
+    │  #1  sunt aut facere repellat...    │
+    │  quia et suscipit suscipit recus... │
+    │  ─────────────────────────────────  │
+    └──────────────────────────────────────┘
+           编号     标题                    正文预览
+-->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="#FFFFFF"
+    android:layout_marginBottom="10dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="14dp"
+        android:gravity="center_vertical">
+
+        <!-- 文章编号圆形标签 -->
+        <TextView
+            android:id="@+id/tvId"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:text="#1"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="#FFF"
+            android:gravity="center"
+            android:background="@drawable/bg_circle" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="8dp">
+
+            <!-- 文章标题 -->
+            <TextView
+                android:id="@+id/tvTitle"
+                android:text="文章标题"
+                android:textSize="15sp"
+                android:textColor="#333"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <!-- 文章正文预览（最多两行） -->
+            <TextView
+                android:id="@+id/tvBody"
+                android:text="正文预览..."
+                android:textSize="13sp"
+                android:textColor="#888"
+                android:layout_marginTop="4dp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:lineSpacingMultiplier="1.2" />
+        </LinearLayout>
+
+        <!-- 箭头 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="→"
+            android:textSize="18sp"
+            android:textColor="#CCC" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
