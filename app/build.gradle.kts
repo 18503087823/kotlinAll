@@ -47,6 +47,8 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.cardview:cardview:1.0.0")
+    // ViewPager2 — 引导页横向滑动切换
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
 
     // ── MVVM 架构组件 ──
     // ViewModel：管理 UI 相关数据，横竖屏切换时数据不丢失

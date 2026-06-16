@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- 主主题：Material Design NoActionBar -->
     <style name="Theme.KotlinLearn" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">#6200EE</item>
         <item name="colorPrimaryVariant">#3700B3</item>
@@ -7,5 +8,12 @@
         <item name="colorSecondary">#03DAC5</item>
         <item name="colorSecondaryVariant">#018786</item>
         <item name="android:statusBarColor">#3700B3</item>
+    </style>
+
+    <!-- 启动页主题：全屏 + 背景渐变（避免白屏闪烁） -->
+    <style name="Theme.KotlinLearn.Splash" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">#6200EE</item>
+        <item name="android:statusBarColor">#6200EE</item>
+        <item name="android:windowBackground">#6200EE</item>
     </style>
 </resources>

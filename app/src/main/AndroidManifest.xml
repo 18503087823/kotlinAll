@@ -11,6 +11,17 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.KotlinLearn">
 
+        <!-- 引导页 — 首次启动时展示 3 个滑动页面 -->
+        <activity
+            android:name=".GuideActivity"
+            android:exported="false" />
+
+        <!-- 登录页 — POST 请求验证账号密码 -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+
+        <!-- 知识点详情页 -->
         <activity
             android:name=".DetailActivity"
             android:exported="false"
@@ -28,9 +39,17 @@
             android:exported="false"
             android:parentActivityName=".mvvm.ui.list.PostListActivity" />
 
+        <!-- 主页 — 23 个知识点卡片 -->
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="false"
+            android:parentActivityName=".LoginActivity" />
+
+        <!-- 启动页 — 应用入口，带进入动画，判断首次/回访 -->
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.KotlinLearn.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

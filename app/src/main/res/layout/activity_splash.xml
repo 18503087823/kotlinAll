@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_splash.xml — 启动页布局
+
+    结构：居中图标 + 底部标语文字，背景紫色
+    图标有淡入放大动画，文字有从下往上滑入动画
+-->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#6200EE">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <!-- 启动图标：白色圆形 + K 字 -->
+        <TextView
+            android:id="@+id/tvIcon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:text="K"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:textColor="#6200EE"
+            android:gravity="center"
+            android:background="@drawable/bg_splash_icon" />
+
+        <!-- 标语 -->
+        <TextView
+            android:id="@+id/tvSlogan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kotlin 学习助手"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="16dp"
+            android:alpha="0.6" />
+    </LinearLayout>
+
+    <!-- 底部版本号 -->
+    <TextView
+        android:id="@+id/tvVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="v1.0.0"
+        android:textSize="12sp"
+        android:textColor="#AAFFFFFF"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="32dp" />
+</FrameLayout>

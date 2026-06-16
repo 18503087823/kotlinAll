@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    fragment_guide.xml — 单个引导页的布局
+
+    结构：大图标 + 标题 + 描述文字，居中展示
+    图标背景色和文字内容由 Kotlin 代码动态设置
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="40dp">
+
+    <!-- 图标：圆形彩色背景 + emoji -->
+    <TextView
+        android:id="@+id/tvGuideIcon"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:text="📖"
+        android:textSize="52sp"
+        android:gravity="center"
+        android:background="@drawable/bg_circle" />
+
+    <!-- 标题 -->
+    <TextView
+        android:id="@+id/tvGuideTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="标题"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#333"
+        android:layout_marginTop="32dp"
+        android:gravity="center" />
+
+    <!-- 描述文字 -->
+    <TextView
+        android:id="@+id/tvGuideDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="描述文字..."
+        android:textSize="15sp"
+        android:textColor="#777"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.5"
+        android:maxLines="4" />
+</LinearLayout>
