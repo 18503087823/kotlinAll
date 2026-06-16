@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- activity_weather_detail.xml — 天气详情页(丰富滚动布局) -->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <!-- 顶部大图区域 -->
+    <LinearLayout android:id="@+id/headerBg" android:layout_width="match_parent"
+        android:layout_height="240dp" android:orientation="vertical"
+        android:gravity="center" android:background="#1565C0">
+
+        <TextView android:id="@+id/tvWeatherIcon" android:text="☀️"
+            android:textSize="72sp" android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView android:id="@+id/tvTemp" android:text="25°C"
+            android:textSize="48sp" android:textStyle="bold" android:textColor="#FFF"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"/>
+        <TextView android:id="@+id/tvDesc" android:text="晴"
+            android:textSize="18sp" android:textColor="#CCFFFFFF"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"/>
+        <TextView android:id="@+id/tvDate" android:text="2024-01-15"
+            android:textSize="14sp" android:textColor="#AAFFFFFF"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"/>
+    </LinearLayout>
+
+    <!-- 可滚动详情内容 -->
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+        android:layout_height="match_parent" android:clipToPadding="false"
+        android:padding="16dp" android:paddingTop="256dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="vertical">
+
+            <!-- 温度范围卡片 -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp" app:cardElevation="4dp"
+                app:cardBackgroundColor="#FFF" android:layout_marginBottom="16dp">
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:orientation="horizontal"
+                    android:padding="20dp">
+                    <LinearLayout android:layout_width="0dp"
+                        android:layout_height="wrap_content" android:layout_weight="1"
+                        android:gravity="center" android:orientation="vertical">
+                        <TextView android:text="🔺 最高温" android:textSize="13sp"
+                            android:textColor="#999" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView android:id="@+id/tvMaxTemp" android:text="32°C"
+                            android:textSize="32sp" android:textStyle="bold"
+                            android:textColor="#E53935" android:layout_marginTop="4dp"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <View android:layout_width="1dp" android:layout_height="match_parent"
+                        android:background="#E0E0E0" android:layout_marginHorizontal="16dp"/>
+                    <LinearLayout android:layout_width="0dp"
+                        android:layout_height="wrap_content" android:layout_weight="1"
+                        android:gravity="center" android:orientation="vertical">
+                        <TextView android:text="🔻 最低温" android:textSize="13sp"
+                            android:textColor="#999" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView android:id="@+id/tvMinTemp" android:text="18°C"
+                            android:textSize="32sp" android:textStyle="bold"
+                            android:textColor="#1E88E5" android:layout_marginTop="4dp"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 详细数据卡片 -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp" app:cardElevation="4dp"
+                app:cardBackgroundColor="#FFF" android:layout_marginBottom="16dp">
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView android:text="📋 天气详情" android:textSize="17sp"
+                        android:textStyle="bold" android:textColor="#333"
+                        android:layout_marginBottom="16dp" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:orientation="vertical">
+
+                        <LinearLayout android:layout_width="match_parent"
+                            android:layout_height="44dp" android:orientation="horizontal"
+                            android:gravity="center_vertical">
+                            <TextView android:text="🌬 最大风速" android:textSize="14sp"
+                                android:textColor="#555" android:layout_width="0dp"
+                                android:layout_height="wrap_content" android:layout_weight="1"/>
+                            <TextView android:id="@+id/tvWindSpeed" android:text="15 km/h"
+                                android:textSize="15sp" android:textStyle="bold"
+                                android:textColor="#333" android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <View android:layout_width="match_parent" android:layout_height="0.5dp"
+                            android:background="#EEE"/>
+
+                        <LinearLayout android:layout_width="match_parent"
+                            android:layout_height="44dp" android:orientation="horizontal"
+                            android:gravity="center_vertical">
+                            <TextView android:text="🌧 降水量" android:textSize="14sp"
+                                android:textColor="#555" android:layout_width="0dp"
+                                android:layout_height="wrap_content" android:layout_weight="1"/>
+                            <TextView android:id="@+id/tvPrecip" android:text="0.0 mm"
+                                android:textSize="15sp" android:textStyle="bold"
+                                android:textColor="#333" android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <View android:layout_width="match_parent" android:layout_height="0.5dp"
+                            android:background="#EEE"/>
+
+                        <LinearLayout android:layout_width="match_parent"
+                            android:layout_height="44dp" android:orientation="horizontal"
+                            android:gravity="center_vertical">
+                            <TextView android:text="💧 湿度" android:textSize="14sp"
+                                android:textColor="#555" android:layout_width="0dp"
+                                android:layout_height="wrap_content" android:layout_weight="1"/>
+                            <TextView android:id="@+id/tvHumidity" android:text="45%"
+                                android:textSize="15sp" android:textStyle="bold"
+                                android:textColor="#333" android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <View android:layout_width="match_parent" android:layout_height="0.5dp"
+                            android:background="#EEE"/>
+
+                        <LinearLayout android:layout_width="match_parent"
+                            android:layout_height="44dp" android:orientation="horizontal"
+                            android:gravity="center_vertical">
+                            <TextView android:text="☁️ 天气编码" android:textSize="14sp"
+                                android:textColor="#555" android:layout_width="0dp"
+                                android:layout_height="wrap_content" android:layout_weight="1"/>
+                            <TextView android:id="@+id/tvCode" android:text="0"
+                                android:textSize="15sp" android:textStyle="bold"
+                                android:textColor="#333" android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 生活建议卡片 -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp" app:cardElevation="4dp"
+                app:cardBackgroundColor="#E8F5E9" android:layout_marginBottom="16dp">
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:orientation="vertical"
+                    android:padding="20dp">
+                    <TextView android:text="💡 生活建议" android:textSize="17sp"
+                        android:textStyle="bold" android:textColor="#2E7D32"
+                        android:layout_marginBottom="12dp" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView android:id="@+id/tvAdvice" android:text="天气晴朗，适合户外运动。注意防晒。"
+                        android:textSize="14sp" android:textColor="#555"
+                        android:lineSpacingMultiplier="1.6" android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Toolbar (浮动在顶部) -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar" android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize" android:background="#00000000"
+        app:titleTextColor="#FFF" app:navigationIcon="?attr/homeAsUpIndicator"
+        app:navigationIconTint="#FFF" app:title="天气详情" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

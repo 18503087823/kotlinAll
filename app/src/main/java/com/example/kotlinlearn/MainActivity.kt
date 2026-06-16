@@ -1,89 +1,99 @@
 package com.example.kotlinlearn
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
 import com.example.kotlinlearn.databinding.ActivityMainBinding
-import com.example.kotlinlearn.mvvm.ui.list.PostListActivity
+import com.example.kotlinlearn.ui.home.HomeFragment
+import com.example.kotlinlearn.ui.knowledge.KnowledgeFragment
+import com.example.kotlinlearn.ui.demo.DemoFragment
+import com.example.kotlinlearn.ui.profile.ProfileFragment
 
 // ╔══════════════════════════════════════════════════════════════════════════════╗
-// ║  MainActivity — 知识点主页（登录后进入）                                     ║
+// ║  MainActivity — 4 Tab 主页（登录后进入）                                     ║
 // ║                                                                             ║
-// ║  页面结构（从上到下）：                                                     ║
-// ║  1. Toolbar — 标题栏 + 右侧退出登录按钮                                      ║
-// ║  2. 作用域函数对比表格（静态参考）                                           ║
-// ║  3. 快速选择决策树                                                           ║
-// ║  4. RecyclerView — 23 个知识卡片入口                                         ║
+// ║  ┌────────┬────────┬────────┬────────┐                                     ║
+// ║  │ 首页   │ 学习   │ 实战   │ 我的   │                                     ║
+// ║  │ Home   │Knowledge│ Demo  │Profile │                                     ║
+// ║  ├────────┼────────┼────────┼────────┤                                     ║
+// ║  │轮播+天气│ 知识卡片│ MVVM  │个人中心│                                     ║
+// ║  └────────┴────────┴────────┴────────┘                                     ║
 // ║                                                                             ║
-// ║  退出登录：点击 Toolbar 右侧按钮 → 清除登录态 → 回到 LoginActivity            ║
+// ║  使用 Fragment 管理 4 个 Tab，hide/show 切换                                   ║
+// ║  而非 replace，保证切换时 Fragment 状态不丢失                                  ║
 // ╚══════════════════════════════════════════════════════════════════════════════╝
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var adapter: KnowledgePageAdapter
+    private lateinit var b: ActivityMainBinding
+
+    private val homeFragment by lazy { HomeFragment() }
+    private val knowledgeFragment by lazy { KnowledgeFragment() }
+    private val demoFragment by lazy { DemoFragment() }
+    private val profileFragment by lazy { ProfileFragment() }
+
+    /** 当前显示的 Fragment */
+    private var currentFragment: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        b = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(b.root)
 
-        // 设置 Toolbar（作为 ActionBar）
-        setSupportActionBar(binding.toolbar)
+        setSupportActionBar(b.toolbar)
 
-        setupRecyclerView()
-    }
+        // 首次进入 → 默认显示「首页」
+        if (savedInstanceState == null) {
+            switchTab(homeFragment)
+        }
 
-    // ── Toolbar 菜单 ──────────────────────────────────────────────────────────
-
-    /** 加载右上角退出登录按钮 */
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
-
-    /**
-     * ## 处理 Toolbar 菜单点击
-     *
-     * 退出登录流程：
-     * 1. 调用 PreferenceManager.setLoggedOut() 清除登录态
-     * 2. 跳转到 LoginActivity
-     * 3. finish() 关掉 MainActivity（防止返回键回到主页）
-     */
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_logout -> {
-                PreferenceManager.setLoggedOut()
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
-                true
+        // 底部导航点击切换
+        b.bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home      -> switchTab(homeFragment)
+                R.id.nav_knowledge -> switchTab(knowledgeFragment)
+                R.id.nav_demo      -> switchTab(demoFragment)
+                R.id.nav_profile   -> switchTab(profileFragment)
             }
-            else -> super.onOptionsItemSelected(item)
+            true
         }
     }
 
-    // ── RecyclerView ──────────────────────────────────────────────────────────
+    /**
+     * ## Fragment 切换（hide/show 策略）
+     *
+     * 用 hide/show 而非 replace：
+     * - hide：Fragment 实例保留，onSaveInstanceState 保留
+     * - replace：Fragment 被销毁重建，状态丢失，性能差
+     *
+     * 首次添加时用 `add + hide + show`，之后用 `hide + show`
+     */
+    private fun switchTab(target: Fragment) {
+        val current = currentFragment
 
-    private fun setupRecyclerView() {
-        adapter = KnowledgePageAdapter(
-            pages = KnowledgeData.allPages,
-            onItemClick = { page ->
-                if (page.id == "mvvm-demo") {
-                    startActivity(Intent(this, PostListActivity::class.java))
-                    return@KnowledgePageAdapter
-                }
-                val intent = Intent(this, DetailActivity::class.java).apply {
-                    putExtra(DetailActivity.EXTRA_PAGE_ID, page.id)
-                }
-                startActivity(intent)
+        supportFragmentManager.beginTransaction().apply {
+            // 如果之前有 Fragment 且还在，先隐藏它
+            if (current != null && current.isAdded) {
+                hide(current)
             }
-        )
 
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = this@MainActivity.adapter
+            // 目标 Fragment 是否已添加过？
+            if (target.isAdded) {
+                show(target)
+            } else {
+                add(R.id.fragmentContainer, target)
+            }
+        }.commit()
+
+        currentFragment = target
+    }
+
+    /** 处理系统返回键 → 如果不在首页 Tab，切回首页 */
+    @Deprecated("Deprecated in Java") // suppress warning
+    override fun onBackPressed() {
+        if (currentFragment != homeFragment) {
+            b.bottomNav.selectedItemId = R.id.nav_home
+        } else {
+            super.onBackPressed()
         }
     }
 }

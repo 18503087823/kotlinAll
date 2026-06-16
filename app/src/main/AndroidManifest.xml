@@ -39,7 +39,13 @@
             android:exported="false"
             android:parentActivityName=".mvvm.ui.list.PostListActivity" />
 
-        <!-- 主页 — 23 个知识点卡片 -->
+        <!-- 天气详情页 — 单日天气滚动详情 -->
+        <activity
+            android:name=".ui.weather.WeatherDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <!-- 主页 — 4 Tab 底部导航 -->
         <activity
             android:name=".MainActivity"
             android:exported="false"

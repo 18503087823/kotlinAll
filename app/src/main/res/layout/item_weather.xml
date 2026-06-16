@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- item_weather.xml — 天气列表单项 -->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp" app:cardElevation="1dp"
+    app:cardBackgroundColor="#FFF" android:layout_marginBottom="8dp"
+    android:clickable="true" android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:orientation="horizontal"
+        android:padding="14dp" android:gravity="center_vertical">
+
+        <!-- 天气图标+日期 -->
+        <LinearLayout android:layout_width="56dp" android:layout_height="wrap_content"
+            android:orientation="vertical" android:gravity="center">
+            <TextView android:id="@+id/tvWeatherIcon" android:text="☀️"
+                android:textSize="28sp" android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView android:id="@+id/tvDate" android:text="01/01"
+                android:textSize="11sp" android:textColor="#888"
+                android:layout_marginTop="2dp" android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!-- 温度范围 -->
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical"
+            android:layout_marginLeft="12dp">
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <TextView android:text="高温" android:textSize="12sp" android:textColor="#999"
+                    android:layout_width="30dp" android:layout_height="wrap_content"/>
+                <TextView android:id="@+id/tvMaxTemp" android:text="25°"
+                    android:textSize="18sp" android:textStyle="bold" android:textColor="#E53935"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:orientation="horizontal"
+                android:gravity="center_vertical" android:layout_marginTop="2dp">
+                <TextView android:text="低温" android:textSize="12sp" android:textColor="#999"
+                    android:layout_width="30dp" android:layout_height="wrap_content"/>
+                <TextView android:id="@+id/tvMinTemp" android:text="15°"
+                    android:textSize="18sp" android:textStyle="bold" android:textColor="#1E88E5"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 天气描述 + 风力 -->
+        <LinearLayout android:layout_width="70dp" android:layout_height="wrap_content"
+            android:orientation="vertical" android:gravity="end">
+            <TextView android:id="@+id/tvDesc" android:text="晴"
+                android:textSize="14sp" android:textColor="#555"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            <TextView android:id="@+id/tvWind" android:text="微风"
+                android:textSize="11sp" android:textColor="#999"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"/>
+        </LinearLayout>
+
+        <TextView android:text="→" android:textSize="18sp" android:textColor="#CCC"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"/>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

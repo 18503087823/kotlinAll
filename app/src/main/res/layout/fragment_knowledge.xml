@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- fragment_knowledge.xml — 知识点列表页 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:background="#F5F5F5">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:clipToPadding="false" android:paddingBottom="24dp">
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="vertical"
+            android:padding="16dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="📊 作用域函数速查" android:textSize="17sp"
+                android:textStyle="bold" android:textColor="#333" android:layout_marginBottom="10dp"/>
+            <include layout="@layout/table_comparison"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="📖 全部知识点（点击卡片进入详情）" android:textSize="17sp"
+                android:textStyle="bold" android:textColor="#333"
+                android:layout_marginTop="16dp" android:layout_marginBottom="10dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:nestedScrollingEnabled="false"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

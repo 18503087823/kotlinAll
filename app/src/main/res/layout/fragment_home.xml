@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- fragment_home.xml — 首页：轮播图 + 跑马灯 + 30天天气列表 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:background="#F5F5F5">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:clipToPadding="false">
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="vertical">
+
+            <!-- 轮播 Banner — ViewPager2 -->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPagerBanner" android:layout_width="match_parent"
+                android:layout_height="180dp" />
+
+            <!-- 轮播圆点指示器 -->
+            <LinearLayout android:id="@+id/dotsBanner"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:layout_gravity="center"
+                android:layout_marginTop="8dp" android:layout_marginBottom="4dp" />
+
+            <!-- 跑马灯 -->
+            <TextView android:id="@+id/tvMarquee"
+                android:layout_width="match_parent" android:layout_height="36dp"
+                android:text="安卓开发其乐无穷，我爱安卓，爱你们"
+                android:textSize="14sp" android:textColor="#E65100"
+                android:background="#FFF3E0" android:gravity="center_vertical"
+                android:paddingHorizontal="12dp" android:singleLine="true"
+                android:ellipsize="marquee" android:marqueeRepeatLimit="marquee_forever"
+                android:focusable="true" android:focusableInTouchMode="true"
+                android:layout_marginTop="4dp" android:layout_marginHorizontal="12dp" />
+
+            <!-- 天气标题 -->
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:orientation="horizontal"
+                android:paddingHorizontal="16dp" android:paddingTop="16dp" android:paddingBottom="8dp">
+
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:text="🌤 北京未来30天天气" android:textSize="17sp"
+                    android:textStyle="bold" android:textColor="#333" />
+                <ProgressBar android:id="@+id/progressWeather" android:layout_width="20dp"
+                    android:layout_height="20dp" android:visibility="gone" />
+            </LinearLayout>
+
+            <!-- 天气列表 -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerWeather" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:nestedScrollingEnabled="false"
+                android:paddingHorizontal="12dp" android:paddingBottom="24dp" />
+
+            <!-- 错误状态 -->
+            <TextView android:id="@+id/tvError" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:text="加载失败，下拉重试"
+                android:textSize="14sp" android:textColor="#D32F2F" android:gravity="center"
+                android:padding="32dp" android:visibility="gone" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>
