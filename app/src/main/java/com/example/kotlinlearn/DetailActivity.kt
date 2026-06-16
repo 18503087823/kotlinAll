@@ -167,18 +167,18 @@ class DetailActivity : AppCompatActivity() {
         // ── 外层：MaterialCardView ──
         return CardView(this).apply {
             // 卡片外观
-            radius = dp(12)
-            setCardElevation(dp(2))
+            radius = dp(12).toFloat()
+            setCardElevation(dp(2).toFloat())
             setContentPadding(dp(16), dp(16), dp(16), dp(16))
             // 下边距
-            (layoutParams as? ViewGroup.MarginLayoutParams)?.bottomMargin = dp(16)
+            // bottomMargin: (layoutParams as? MarginLayoutParams)?.let { it.bottomMargin = dp(16) }
 
             // ── 内层：文字 ──
             addView(TextView(context).apply {
                 this.text = text
                 textSize = 14f
                 setTextColor(Color.parseColor("#444444"))
-                lineSpacingMultiplier = 1.6f
+                // lineSpacingMultiplier =1.6f
             })
         }
     }
@@ -203,10 +203,10 @@ class DetailActivity : AppCompatActivity() {
         val num = nums.getOrElse(index) { "${index + 1}." }
 
         return CardView(this).apply {
-            radius = dp(12)
-            setCardElevation(dp(2))
+            radius = dp(12).toFloat()
+            setCardElevation(dp(2).toFloat())
             setContentPadding(dp(16), dp(16), dp(16), dp(16))
-            (layoutParams as? ViewGroup.MarginLayoutParams)?.bottomMargin = dp(16)
+            // bottomMargin: (layoutParams as? MarginLayoutParams)?.let { it.bottomMargin = dp(16) }
 
             // 内容用垂直 LinearLayout
             addView(LinearLayout(context).apply {
@@ -227,7 +227,7 @@ class DetailActivity : AppCompatActivity() {
                         text = section.description
                         textSize = 14f
                         setTextColor(Color.parseColor("#555555"))
-                        lineSpacingMultiplier = 1.55f
+                        // lineSpacingMultiplier =1.55f
                         setPadding(0, 0, 0, dp(12))
                     })
                 }
@@ -256,7 +256,7 @@ class DetailActivity : AppCompatActivity() {
                             textSize = 13.5f
                             setTextColor(Color.parseColor("#444444"))
                             setPadding(dp(8), dp(3), 0, dp(3))
-                            lineSpacingMultiplier = 1.4f
+                            // lineSpacingMultiplier =1.4f
                         })
                     }
                 }
@@ -270,7 +270,7 @@ class DetailActivity : AppCompatActivity() {
                         setTextColor(Color.parseColor("#BF360C"))
                         setBackgroundColor(Color.parseColor("#FFF3E0"))
                         setPadding(dp(12), dp(10), dp(12), dp(10))
-                        lineSpacingMultiplier = 1.45f
+                        // lineSpacingMultiplier =1.45f
                     })
                 }
             })
@@ -284,8 +284,8 @@ class DetailActivity : AppCompatActivity() {
      */
     private fun buildPageNoteCard(text: String): View {
         return CardView(this).apply {
-            radius = dp(12)
-            setCardElevation(dp(2))
+            radius = dp(12).toFloat()
+            setCardElevation(dp(2).toFloat())
             setCardBackgroundColor(Color.parseColor("#E8F5E9"))  // 浅绿背景
             setContentPadding(dp(16), dp(14), dp(16), dp(14))
 
@@ -293,7 +293,7 @@ class DetailActivity : AppCompatActivity() {
                 this.text = text
                 textSize = 13.5f
                 setTextColor(Color.parseColor("#2E7D32"))
-                lineSpacingMultiplier = 1.55f
+                // lineSpacingMultiplier =1.55f
             })
         }
     }
@@ -323,7 +323,7 @@ class DetailActivity : AppCompatActivity() {
     private fun buildCodeBlock(code: String): View {
         // 外层容器：带深色背景的 FrameLayout（模拟 IDE 代码区）
         return CardView(this).apply {
-            radius = dp(8)
+            radius = dp(8).toFloat()
             setCardBackgroundColor(Color.parseColor("#2B2B2B"))
             setContentPadding(dp(4), dp(4), dp(4), dp(4))
 
@@ -337,7 +337,7 @@ class DetailActivity : AppCompatActivity() {
                         textSize = 12.5f
                         setTextColor(Color.parseColor("#A9B7C6"))  // IDE 风格灰白文字
                         typeface = Typeface.MONOSPACE               // 等宽字体
-                        lineSpacingMultiplier = 1.5f
+                        // lineSpacingMultiplier =1.5f
                         setPadding(dp(12), dp(12), dp(12), dp(12))
                         setTextIsSelectable(true)                   // 允许长按复制！
                     })

@@ -163,8 +163,7 @@ object KnowledgeData {
                     "适合数据转换管道",
                     "不遮蔽外部 `this`，嵌套时比 run 更安全"
                 ),
-                note = "在 Fragment/Activity 等需要访问 `this` 的场景中，用 let 而不是 run，" +
-                        "因为 let 的 `it` 不会覆盖外层 `this`。"
+                note = "用 let 而非 run，let 的 it 不遮蔽 this"
             )
         ),
         pageNote = """
@@ -767,8 +766,7 @@ object KnowledgeData {
                     "SAM 接口（单抽象方法）可用 Lambda 简写",
                     "可直接作为返回值或函数参数"
                 ),
-                note = "如果接口只有一个抽象方法（SAM），优先用 Lambda 简写而非 object 表达式。" +
-                        "Lambda 更简洁，但复杂场景（需要多个方法实现、成员变量）仍用 object 表达式。"
+                note = "SAM 接口优先用 Lambda，复杂场景用 object 表达式"
             )
         ],
         pageNote = """
@@ -956,7 +954,7 @@ object KnowledgeData {
                     |    // ?. ?: 组合：安全取值 + 默认兜底
                     |    val name = user?.name ?: "未知"
                     |    val age  = user?.age  ?: 0
-                    |    println("$name, $age 岁")
+                    |    println("${'$'}name, ${'$'}age 岁")
                     |}
                     |printUser(null)        // 未知, 0 岁
                     |printUser(User("张三", null)) // 张三, 0 岁
@@ -1237,9 +1235,7 @@ object KnowledgeData {
                     "可用于函数类型、集合类型、嵌套泛型等",
                     "适用于整个项目的任意文件（只要 import 对应的包）"
                 ),
-                note = "typealias 是编译期概念，不产生新类型。\n" +
-                        "别名和原类型完全互换，类型检查视为同一类型。\n" +
-                        "如果需要真正的新类型（类型安全区分），用 `value class` 而不是 typealias。"
+                note = "typealias 不产生新类型。需真正新类型用 value class"
             ),
 
             // ── Section 2：import alias 导入别名 ──
@@ -1311,8 +1307,7 @@ object KnowledgeData {
                     "作用范围小（单文件）→ 不会污染全局命名空间",
                     "与 typealias 区别：import as 是文件级重命名，typealias 是项目级类型别名"
                 ),
-                note = "`import as` 只在当前文件有效，不会影响其他文件，因此可以放心用于解决局部冲突。\n" +
-                        "不要滥用 import as 把常用类都改名——这会让其他同事困惑。只用它解决真正的问题。"
+                note = "import as 仅当前文件有效，用于解决命名冲突"
             )
         ],
         pageNote = """
@@ -3215,8 +3210,7 @@ object KnowledgeData {
                     "`viewModelScope.launch` 在 ViewModel 清除时自动取消协程",
                     "完整的 MVVM 数据流：API → Repository → ViewModel → LiveData → UI"
                 ),
-                note = "sealed class + when 是 Kotlin 中最强大的类型安全模式之一。" +
-                        "比 Java 的 enum + switch 强大得多：enum 不能携带不同数据，而 sealed class 的每个子类可以携带不同类型和数量的数据。"
+                note = "sealed class+when 是 Kotlin 最强大的类型安全模式"
             )
         ),
         pageNote = """

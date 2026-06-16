@@ -118,8 +118,6 @@ class ScopeFunctionAdapter(
                 // 文本信息直接赋值
                 tvName.text = item.name
                 tvBrief.text = item.briefDesc
-                tvContextRef.text = item.contextRef
-                tvReturn.text = item.returnValue
 
                 // ── apply：配置 tvIcon 的样式 ──
                 tvIcon.apply {

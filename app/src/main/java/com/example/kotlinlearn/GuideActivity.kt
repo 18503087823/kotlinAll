@@ -31,7 +31,7 @@ class GuideActivity : AppCompatActivity() {
     // ── 3 个引导页数据 ──────────────────────────────────────────────────────
 
     /** 每个引导页就是一组 {图标, 标题, 描述, 背景色} */
-    private data class GuidePage(
+    data class GuidePage(
         val icon: String,
         val title: String,
         val desc: String,
