@@ -2,107 +2,121 @@
 <!--
     activity_login.xml — 登录页布局
 
-    结构：应用图标 + 账号输入框 + 密码输入框 + 登录按钮 + Loading
-    POST 请求到服务器验证账号密码
+    结构：ScrollView 内依次排列 图标 + 账号 + 密码 + 登录按钮
+    按钮紧挨密码框下方 10dp，键盘弹出时跟着内容一起滚动，不会被遮挡。
+
+    密码输入框 — Material endIconMode="password_toggle" 自带眼睛切换。
 -->
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:padding="32dp"
+    android:fillViewport="true"
     android:background="#F5F5F5">
 
-    <!-- 顶部留白 + 图标 -->
-    <Space android:layout_width="match_parent" android:layout_height="80dp" />
-
-    <TextView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:text="K"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        android:textColor="#FFF"
-        android:gravity="center"
-        android:background="@drawable/bg_circle" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Kotlin 学习助手"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="#6200EE"
-        android:layout_marginTop="16dp" />
-
-    <Space android:layout_width="match_parent" android:layout_height="40dp" />
-
-    <!-- 账号输入 -->
-    <com.google.android.material.textfield.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:boxBackgroundMode="outline"
-        android:hint="账号"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginBottom="16dp">
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="32dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etUsername"
+        <!-- 顶部留白 + 图标 -->
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="80dp" />
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:text="K"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:textColor="#FFF"
+            android:gravity="center"
+            android:background="@drawable/bg_circle" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kotlin 学习助手"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#6200EE"
+            android:layout_marginTop="16dp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <!-- 账号输入 -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:textSize="15sp"
-            android:maxLines="1" />
-    </com.google.android.material.textfield.TextInputLayout>
+            app:boxBackgroundMode="outline"
+            android:hint="账号"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="16dp">
 
-    <!-- 密码输入 -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:boxBackgroundMode="outline"
-        android:hint="密码"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginBottom="24dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textSize="15sp"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etPassword"
+        <!-- 密码输入 — endIconMode 自带 👁 切换明文/密文 -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:textSize="15sp"
-            android:maxLines="1" />
-    </com.google.android.material.textfield.TextInputLayout>
+            app:boxBackgroundMode="outline"
+            android:hint="密码"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:endIconMode="password_toggle">
 
-    <!-- 登录按钮 -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnLogin"
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:text="登  录"
-        android:textSize="17sp"
-        android:textColor="#FFF"
-        android:backgroundTint="#6200EE"
-        app:cornerRadius="8dp" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:textSize="15sp"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- 加载指示器 -->
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="16dp"
-        android:visibility="gone" />
+        <!-- 登录按钮 — 密码框下方 10dp -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:text="登  录"
+            android:textSize="17sp"
+            android:textColor="#FFF"
+            android:backgroundTint="#6200EE"
+            app:cornerRadius="8dp"
+            android:layout_marginTop="10dp" />
 
-    <!-- 错误提示 -->
-    <TextView
-        android:id="@+id/tvError"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="13sp"
-        android:textColor="#D32F2F"
-        android:layout_marginTop="12dp"
-        android:gravity="center"
-        android:visibility="gone" />
-</LinearLayout>
+        <!-- 加载指示器 -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="16dp"
+            android:visibility="gone" />
+
+        <!-- 错误提示 -->
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="13sp"
+            android:textColor="#D32F2F"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:visibility="gone" />
+    </LinearLayout>
+</ScrollView>

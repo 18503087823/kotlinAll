@@ -13,9 +13,11 @@
             android:text="K" android:textSize="30sp" android:textStyle="bold"
             android:textColor="#6200EE" android:gravity="center"
             android:background="@drawable/bg_splash_icon" />
-        <TextView android:text="Kotlin 学习者" android:textSize="18sp"
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Kotlin 学习者" android:textSize="18sp"
             android:textColor="#FFF" android:layout_marginTop="12dp" />
-        <TextView android:text="已掌握 23 个知识点" android:textSize="13sp"
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="已掌握 23 个知识点" android:textSize="13sp"
             android:textColor="#AAFFFFFF" android:layout_marginTop="4dp" />
     </LinearLayout>
 

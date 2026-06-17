@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
  *
  * 管理数据：
  * - 轮播 Banner 图片 URL 列表
- * - 30 天天气列表
+ * - 16 天天气列表
  * - 加载/错误状态
  *
  * 数据流：
@@ -53,7 +53,7 @@ class HomeViewModel : ViewModel() {
 
     init { loadWeather() }
 
-    /** 加载 30 天天气数据 */
+    /** 加载 16 天天气数据 */
     fun loadWeather() {
         viewModelScope.launch {
             _isLoading.value = true

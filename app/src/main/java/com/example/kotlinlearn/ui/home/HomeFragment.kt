@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -23,7 +25,7 @@ import com.example.kotlinlearn.ui.weather.weatherDesc
 // ╔══════════════════════════════════════════════════════════════════════════════╗
 // ║  HomeFragment — 首页 (Tab 1)                                               ║
 // ║                                                                             ║
-// ║  结构：Banner 轮播图 → 跑马灯 → 30 天天气列表                                 ║
+// ║  结构：Banner 轮播图 → 跑马灯 → 16 天天气列表                                 ║
 // ║  全部使用 MVVM 模式：Fragment ← observe ← HomeViewModel ← Repository ← API  ║
 // ╚══════════════════════════════════════════════════════════════════════════════╝
 class HomeFragment : Fragment() {

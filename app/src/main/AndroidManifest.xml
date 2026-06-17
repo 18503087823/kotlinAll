@@ -19,7 +19,8 @@
         <!-- 登录页 — POST 请求验证账号密码 -->
         <activity
             android:name=".LoginActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
 
         <!-- 知识点详情页 -->
         <activity

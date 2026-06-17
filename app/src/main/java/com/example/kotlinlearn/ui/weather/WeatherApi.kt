@@ -1,5 +1,6 @@
 package com.example.kotlinlearn.ui.weather
 
+import com.google.gson.annotations.SerializedName
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -15,11 +16,11 @@ data class WeatherResponse(
 
 data class DailyData(
     val time: List<String>,
-    val temperature_2m_max: List<Double>,
-    val temperature_2m_min: List<Double>,
-    val weathercode: List<Int>,
-    val precipitation_sum: List<Double>,
-    val windspeed_10m_max: List<Double>
+    @SerializedName("temperature_2m_max") val temperature_2m_max: List<Double>,
+    @SerializedName("temperature_2m_min") val temperature_2m_min: List<Double>,
+    @SerializedName("weather_code")       val weathercode: List<Int>,
+    @SerializedName("precipitation_sum")  val precipitation_sum: List<Double>,
+    @SerializedName("wind_speed_10m_max") val windspeed_10m_max: List<Double>
 )
 
 /** UI 层使用的单日天气数据（从 WeatherResponse 提取） */
@@ -40,7 +41,7 @@ data class DayWeather(
  * https://api.open-meteo.com/v1/forecast
  *   ?latitude=39.9042&longitude=116.4074
  *   &daily=temperature_2m_max,temperature_2m_min,weathercode,precipitation_sum,windspeed_10m_max
- *   &timezone=Asia/Shanghai&forecast_days=30
+ *   &timezone=Asia/Shanghai&forecast_days=16
  * ```
  *
  * @Query 注解 → URL 查询参数，等价于 URL 末尾的 ?key=value
@@ -57,8 +58,8 @@ interface WeatherApi {
     suspend fun getWeather(
         @Query("latitude") lat: Double = LATITUDE,
         @Query("longitude") lon: Double = LONGITUDE,
-        @Query("daily") daily: String = "temperature_2m_max,temperature_2m_min,weathercode,precipitation_sum,windspeed_10m_max",
+        @Query("daily") daily: String = "temperature_2m_max,temperature_2m_min,weather_code,precipitation_sum,wind_speed_10m_max",
         @Query("timezone") tz: String = "Asia/Shanghai",
-        @Query("forecast_days") days: Int = 30
+        @Query("forecast_days") days: Int = 16
     ): WeatherResponse
 }

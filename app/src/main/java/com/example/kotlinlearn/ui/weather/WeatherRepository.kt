@@ -27,7 +27,7 @@ class WeatherRepository {
     }
 
     /**
-     * 获取北京 30 天天气 → 用 NetworkResult 密封类封装结果
+     * 获取北京 16 天天气 → 用 NetworkResult 密封类封装结果
      *
      * @return NetworkResult<List<DayWeather>>
      */
@@ -45,7 +45,7 @@ class WeatherRepository {
                     windSpeed = resp.daily.windspeed_10m_max.getOrElse(i) { 0.0 }
                 )
             }
-            NetworkResult.Success(days.take(30))
+            NetworkResult.Success(days.take(16))
         } catch (e: Exception) {
             NetworkResult.Error(e)
         }

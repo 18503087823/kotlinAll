@@ -63,6 +63,8 @@
             <!-- 标题 -->
             <TextView
                 android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="let"
                 android:textSize="17sp"
                 android:textColor="#333"
@@ -71,6 +73,8 @@
             <!-- 简介（最多两行） -->
             <TextView
                 android:id="@+id/tvBrief"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="简介"
                 android:textSize="13sp"
                 android:textColor="#777"
@@ -87,6 +91,8 @@
 
                 <TextView
                     android:id="@+id/tvCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="作用域函数"
                     android:textSize="11sp"
                     android:textColor="#1565C0"
