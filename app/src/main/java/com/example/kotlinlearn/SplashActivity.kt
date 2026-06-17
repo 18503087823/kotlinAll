@@ -61,11 +61,11 @@ class SplashActivity : AppCompatActivity() {
         with(binding) {
             // 图标：淡入放大
             tvIcon.startAnimation(
-                AnimationUtils.loadAnimation(this@SplashActivity, R.drawable.anim_splash_fade_in)
+                AnimationUtils.loadAnimation(this@SplashActivity, R.anim.anim_splash_fade_in)
             )
             // 标语文字：从下往上滑入
             tvSlogan.startAnimation(
-                AnimationUtils.loadAnimation(this@SplashActivity, R.drawable.anim_splash_text_up)
+                AnimationUtils.loadAnimation(this@SplashActivity, R.anim.anim_splash_text_up)
             )
         }
     }

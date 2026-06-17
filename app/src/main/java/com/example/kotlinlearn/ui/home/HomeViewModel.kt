@@ -77,7 +77,8 @@ class HomeViewModel : ViewModel() {
         viewModelScope.launch {
             while (true) {
                 delay(3000)
-                val next = (_currentBannerPos.value!! + 1) % totalPages
+                val current = _currentBannerPos.value ?: 0
+                val next = (current + 1) % totalPages
                 _currentBannerPos.postValue(next)
             }
         }
