@@ -9,6 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 
 // ╔══════════════════════════════════════════════════════════════════════════════╗
 // ║  WeatherDetailActivity — 单日天气详情页                                      ║

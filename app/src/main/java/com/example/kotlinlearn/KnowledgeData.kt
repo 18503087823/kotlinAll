@@ -35,7 +35,7 @@ object KnowledgeData {
      *
      * 顺序即为列表显示顺序，先作用域函数，再 Object，再空安全，最后别名。
      */
-    val allPages: List<KnowledgePage> = listOf(
+    val allPages: List<KnowledgePage> get() = listOf(
         // ── 作用域函数（5 个独立页面） ──
         scopeLet,
         scopeRun,
@@ -766,9 +766,9 @@ object KnowledgeData {
                     "SAM 接口（单抽象方法）可用 Lambda 简写",
                     "可直接作为返回值或函数参数"
                 ),
-                note = "SAM 接口优先用 Lambda，复杂场景用 object 表达式"
+                note = "优先用 Lambda，复杂用 object 表达式"
             )
-        ],
+        ),
         pageNote = """
             |总结三种用法的记忆口诀：
             |- **object 名称 { }** → 单例 → 全局唯一 → 像「公司只有一个 CEO」
@@ -1123,9 +1123,9 @@ object KnowledgeData {
                     "常与 `?.` `?:` `let` 组合使用",
                     "配合 when 可实现类型模式匹配"
                 ),
-                note = "能用 `as?` 就不用 `as`，能用 `is` 智能转换就不用 `as?`。Kotlin 的智能转换（smart cast）在 `if (obj is String)` 后自动将 obj 当作 String。"
+                note = "能用 as? 就不用 as，能用 is 智能转换就不用 as?"
             )
-        ],
+        ),
         pageNote = """
             |## ⭐ 空安全决策速查
             |
@@ -1307,9 +1307,9 @@ object KnowledgeData {
                     "作用范围小（单文件）→ 不会污染全局命名空间",
                     "与 typealias 区别：import as 是文件级重命名，typealias 是项目级类型别名"
                 ),
-                note = "import as 仅当前文件有效，用于解决命名冲突"
+                note = "import as 仅当前文件有效"
             )
-        ],
+        ),
         pageNote = """
             |## ⭐ typealias vs import as 选择指南
             |

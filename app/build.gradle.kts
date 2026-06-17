@@ -57,6 +57,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
     // Activity KTX：提供 viewModels() 委托和 lifecycleScope
     implementation("androidx.activity:activity-ktx:1.8.2")
+    // Fragment KTX：Fragment 中的 viewModels() 委托
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
 
     // ── 网络请求：Retrofit + Gson ──
     // Retrofit：类型安全的 HTTP 客户端

@@ -167,7 +167,7 @@ class PostListActivity : AppCompatActivity() {
 
                     // 根据 id 动态改变圆形背景色
                     val circle = ResourcesCompat.getDrawable(
-                        resources, R.drawable.bg_circle, null
+                        root.resources, R.drawable.bg_circle, null
                     )!!.mutate()
                     // id 不同 → 颜色深浅不同（用 HSL 微调）
                     val hue = ((post.id * 37) % 360).toFloat()
