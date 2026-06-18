@@ -1,5 +1,6 @@
 package com.example.kotlinlearn
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
@@ -12,6 +13,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.example.kotlinlearn.databinding.ActivityDetailBinding
+import com.google.android.material.button.MaterialButton
 
 // ╔══════════════════════════════════════════════════════════════════════════════╗
 // ║  DetailActivity — 通用知识详情页                                            ║
@@ -145,6 +147,9 @@ class DetailActivity : AppCompatActivity() {
             // 4. 页面提示卡片（如果有）
             if (page.pageNote.isNotEmpty()) {
                 addView(buildPageNoteCard(page.pageNote))
+            }
+            if (CodeExampleData.hasPage(page.id)) {
+                addView(buildCodeExampleEntryCard(page.id))
             }
         }
     }
@@ -373,6 +378,42 @@ class DetailActivity : AppCompatActivity() {
      * - xhdpi (320dpi) → density = 2.0
      * - xxhdpi (480dpi) → density = 3.0
      */
+    private fun buildCodeExampleEntryCard(pageId: String): View {
+        return CardView(this).apply {
+            radius = dp(12).toFloat()
+            setCardElevation(dp(2).toFloat())
+            setCardBackgroundColor(Color.parseColor("#FFF8E1"))
+            setContentPadding(dp(16), dp(16), dp(16), dp(16))
+
+            addView(LinearLayout(context).apply {
+                orientation = LinearLayout.VERTICAL
+
+                addView(TextView(context).apply {
+                    text = "想看更优代码写法？"
+                    textSize = 15f
+                    setTextColor(Color.parseColor("#444444"))
+                    setTypeface(typeface, Typeface.BOLD)
+                })
+
+                addView(TextView(context).apply {
+                    text = "这里会把当前知识点整理成更贴近实战的示例。"
+                    textSize = 13.5f
+                    setTextColor(Color.parseColor("#666666"))
+                    setPadding(0, dp(6), 0, dp(12))
+                })
+
+                addView(MaterialButton(context).apply {
+                    text = "查看更优代码示例"
+                    setOnClickListener {
+                        startActivity(Intent(this@DetailActivity, CodeExampleActivity::class.java).apply {
+                            putExtra(EXTRA_PAGE_ID, pageId)
+                        })
+                    }
+                })
+            })
+        }
+    }
+
     private fun dp(value: Int): Int {
         return (value * resources.displayMetrics.density).toInt()
     }
