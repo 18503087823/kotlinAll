@@ -1,102 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 对比总览表格 -->
+<!-- 5 大作用域函数对比表格 -->
 <TableLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="2dp"
     android:background="#FFFFFF"
-    android:stretchColumns="1">
+    android:stretchColumns="4">
 
-    <!-- 表头 -->
+    <!-- ═══ 表头 ═══ -->
     <TableRow
         android:background="#6200EE"
-        android:padding="8dp">
+        android:padding="6dp">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="函数"
-            android:textColor="#FFF"
-            android:textStyle="bold"
-            android:textSize="12sp"
-            android:padding="6dp"
+            android:textColor="#FFF" android:textStyle="bold"
+            android:textSize="12sp" android:padding="6dp"
             android:gravity="center" />
 
         <TextView
-            android:text="引用方式"
-            android:textColor="#FFF"
-            android:textStyle="bold"
-            android:textSize="12sp"
-            android:padding="6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="引用"
+            android:textColor="#FFF" android:textStyle="bold"
+            android:textSize="12sp" android:padding="6dp"
             android:gravity="center" />
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="返回值"
-            android:textColor="#FFF"
-            android:textStyle="bold"
-            android:textSize="12sp"
-            android:padding="6dp"
+            android:textColor="#FFF" android:textStyle="bold"
+            android:textSize="12sp" android:padding="6dp"
             android:gravity="center" />
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="扩展函数"
-            android:textColor="#FFF"
-            android:textStyle="bold"
-            android:textSize="12sp"
-            android:padding="6dp"
+            android:textColor="#FFF" android:textStyle="bold"
+            android:textSize="12sp" android:padding="6dp"
             android:gravity="center" />
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="典型场景"
-            android:textColor="#FFF"
-            android:textStyle="bold"
-            android:textSize="12sp"
-            android:padding="6dp"
+            android:textColor="#FFF" android:textStyle="bold"
+            android:textSize="12sp" android:padding="6dp"
             android:gravity="center" />
     </TableRow>
 
-    <!-- let -->
+    <!-- ═══ let ═══ -->
     <TableRow android:background="#F3E5F5" android:padding="4dp">
-        <TextView android:text="let" android:textStyle="bold" android:textColor="#7B1FA2" android:textSize="12sp" android:padding="6dp" android:gravity="center" />
-        <TextView android:text="it" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
-        <TextView android:text="Lambda结果" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
-        <TextView android:text="✅" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
-        <TextView android:text="非空处理" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="let" android:textStyle="bold" android:textColor="#7B1FA2"
+            android:textSize="12sp" android:padding="6dp" android:gravity="center" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="it" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="最后一行结果" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="✅" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="处理可空对象、转换类型" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
     </TableRow>
 
-    <!-- run -->
-    <TableRow android:background="#E8EAF6" android:padding="4dp">
-        <TextView android:text="run" android:textStyle="bold" android:textColor="#283593" android:textSize="12sp" android:padding="6dp" android:gravity="center" />
-        <TextView android:text="this" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
-        <TextView android:text="Lambda结果" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
-        <TextView android:text="✅" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
-        <TextView android:text="配置+计算" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
-    </TableRow>
-
-    <!-- with -->
-    <TableRow android:background="#E0F2F1" android:padding="4dp">
-        <TextView android:text="with" android:textStyle="bold" android:textColor="#00695C" android:textSize="12sp" android:padding="6dp" android:gravity="center" />
-        <TextView android:text="this" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
-        <TextView android:text="Lambda结果" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
-        <TextView android:text="❌" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
-        <TextView android:text="批量操作" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
-    </TableRow>
-
-    <!-- apply -->
-    <TableRow android:background="#FFF3E0" android:padding="4dp">
-        <TextView android:text="apply" android:textStyle="bold" android:textColor="#E65100" android:textSize="12sp" android:padding="6dp" android:gravity="center" />
-        <TextView android:text="this" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
-        <TextView android:text="对象本身" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
-        <TextView android:text="✅" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
-        <TextView android:text="对象初始化" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
-    </TableRow>
-
-    <!-- also -->
+    <!-- ═══ also ═══ -->
     <TableRow android:background="#FCE4EC" android:padding="4dp">
-        <TextView android:text="also" android:textStyle="bold" android:textColor="#880E4F" android:textSize="12sp" android:padding="6dp" android:gravity="center" />
-        <TextView android:text="it" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
-        <TextView android:text="对象本身" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
-        <TextView android:text="✅" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
-        <TextView android:text="副作用操作" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="also" android:textStyle="bold" android:textColor="#880E4F"
+            android:textSize="12sp" android:padding="6dp" android:gravity="center" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="it" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="调用对象本身" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="✅" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="附加操作（日志、验证）" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
+    </TableRow>
+
+    <!-- ═══ with ═══ -->
+    <TableRow android:background="#E0F2F1" android:padding="4dp">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="with" android:textStyle="bold" android:textColor="#00695C"
+            android:textSize="12sp" android:padding="6dp" android:gravity="center" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="this" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="最后一行结果" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="❌" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="批量操作对象属性" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
+    </TableRow>
+
+    <!-- ═══ run ═══ -->
+    <TableRow android:background="#E8EAF6" android:padding="4dp">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="run" android:textStyle="bold" android:textColor="#283593"
+            android:textSize="12sp" android:padding="6dp" android:gravity="center" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="this" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="最后一行结果" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="✅" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="对象配置+计算返回值" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
+    </TableRow>
+
+    <!-- ═══ apply ═══ -->
+    <TableRow android:background="#FFF3E0" android:padding="4dp">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="apply" android:textStyle="bold" android:textColor="#E65100"
+            android:textSize="12sp" android:padding="6dp" android:gravity="center" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="this" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="调用对象本身" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="✅" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="对象初始化、配置后返回自身" android:textSize="11sp" android:padding="6dp" android:gravity="center" />
     </TableRow>
 
 </TableLayout>

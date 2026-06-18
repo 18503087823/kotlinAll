@@ -7,7 +7,7 @@
 // ║                                                                             ║
 // ║  页面组织结构（按分类）：                                                    ║
 // ║  ┌─────────────────┬──────────────────────────────────────────────────┐     ║
-// ║  │ 作用域函数 (5页)  │ let / run / with / apply / also                  │     ║
+// ║  │ 作用域函数 (5页)  │ let / also / with / run / apply                    │     ║
 // ║  │ Object   (1页)   │ 对象声明 / 伴生对象 / 对象表达式（3 个 section） │     ║
 // ║  │ 空安全    (1页)   │ ? / ?. / ?: / !! / as?（5 个 section）          │     ║
 // ║  │ 类型别名  (1页)   │ typealias / import alias（2 个 section）         │     ║
@@ -38,10 +38,10 @@ object KnowledgeData {
     val allPages: List<KnowledgePage> get() = listOf(
         // ── 作用域函数（5 个独立页面） ──
         scopeLet,
-        scopeRun,
-        scopeWith,
-        scopeApply,
         scopeAlso,
+        scopeWith,
+        scopeRun,
+        scopeApply,
         // ── Object 三种用法（1 个页面，3 个 section） ──
         objectPage,
         // ── 空安全操作符（1 个页面，5 个 section） ──

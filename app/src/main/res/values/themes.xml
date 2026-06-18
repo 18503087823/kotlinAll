@@ -16,4 +16,10 @@
         <item name="android:statusBarColor">#6200EE</item>
         <item name="android:windowBackground">#6200EE</item>
     </style>
+
+    <!-- 圆形头像 style — ShapeableImageView 使用 -->
+    <style name="CircleAvatar">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

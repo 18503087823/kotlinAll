@@ -61,7 +61,7 @@ object ScopeFunctionData {
      * - 返回的是只读 List，防止外部意外修改数据
      * - Kotlin 鼓励默认不可变（immutable-first）
      */
-    val all: List<ScopeFunction> get() = listOf(let, run, with, apply, also)
+    val all: List<ScopeFunction> get() = listOf(let, also, with, run, apply)
 
     // ═══════════════════════════════════════════════════════════════════════════
     // let — 非空处理 + 链式转换

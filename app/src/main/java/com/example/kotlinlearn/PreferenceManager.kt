@@ -23,6 +23,7 @@ object PreferenceManager {
     private const val PREF_NAME = "kotlin_learn_prefs"
     private const val KEY_FIRST_LAUNCH = "is_first_launch"
     private const val KEY_LOGGED_IN = "is_logged_in"
+    private const val KEY_AVATAR_URL = "avatar_url"
 
     /** 懒加载：第一次使用时才初始化 SharedPreferences */
     private var prefs: SharedPreferences? = null
@@ -64,4 +65,15 @@ object PreferenceManager {
     fun setLoggedOut() {
         prefs?.edit()?.putBoolean(KEY_LOGGED_IN, false)?.apply()
     }
+
+    // ── 头像 URL ─────────────────────────────────────────────────────────────
+
+    /** 保存头像 URL（上传成功后调用） */
+    fun saveAvatarUrl(url: String) {
+        prefs?.edit()?.putString(KEY_AVATAR_URL, url)?.apply()
+    }
+
+    /** 获取头像 URL，null 表示未设置头像 */
+    val avatarUrl: String?
+        get() = prefs?.getString(KEY_AVATAR_URL, null)
 }
