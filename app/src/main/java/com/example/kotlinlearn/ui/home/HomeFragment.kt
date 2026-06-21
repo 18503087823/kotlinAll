@@ -9,13 +9,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.example.kotlinlearn.R
+import com.example.kotlinlearn.DotIndicator
 import com.example.kotlinlearn.databinding.FragmentHomeBinding
 import com.example.kotlinlearn.databinding.ItemWeatherBinding
 import com.example.kotlinlearn.ui.weather.DayWeather
@@ -23,17 +22,14 @@ import com.example.kotlinlearn.ui.weather.WeatherDetailActivity
 import com.example.kotlinlearn.ui.weather.weatherDesc
 
 // ╔══════════════════════════════════════════════════════════════════════════════╗
-// ║  HomeFragment — 首页 (Tab 1)                                               ║
-// ║                                                                             ║
-// ║  结构：Banner 轮播图 → 跑马灯 → 16 天天气列表                                 ║
-// ║  全部使用 MVVM 模式：Fragment ← observe ← HomeViewModel ← Repository ← API  ║
+// ║  HomeFragment — 首页 (Tab 1)                                              ║
+// ║  结构：Banner 轮播图 → 跑马灯 → 16 天天气列表                                ║
 // ╚══════════════════════════════════════════════════════════════════════════════╝
 class HomeFragment : Fragment() {
 
     private var _b: FragmentHomeBinding? = null
     private val b get() = _b!!
 
-    /** by viewModels() — Fragment 专属委托，获取 ViewModel */
     private val vm: HomeViewModel by viewModels()
 
     private val weatherAdapter by lazy { WeatherAdapter { day -> onWeatherClick(day) } }
@@ -56,44 +52,18 @@ class HomeFragment : Fragment() {
     private fun setupBanner() {
         val adapter = BannerAdapter(vm.bannerUrls, vm.bannerTitles)
         b.viewPagerBanner.adapter = adapter
-        setupDots(adapter.itemCount)
-
-        // 监听页面切换 → 更新圆点
+        DotIndicator.setup(b.dotsBanner, adapter.itemCount)
         b.viewPagerBanner.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(pos: Int) = updateDots(pos)
+            override fun onPageSelected(pos: Int) = DotIndicator.update(b.dotsBanner, pos)
         })
-
-        // 启动 3 秒自动轮播
         vm.startBannerAutoScroll(adapter.itemCount)
         vm.currentBannerPos.observe(viewLifecycleOwner) { pos ->
             b.viewPagerBanner.setCurrentItem(pos, true)
         }
     }
 
-    private fun setupDots(count: Int) {
-        val dots = mutableListOf<TextView>()
-        repeat(count) { i ->
-            dots.add(TextView(requireContext()).apply {
-                text = "●"; textSize = 14f
-                setTextColor(if (i == 0) Color.parseColor("#6200EE") else Color.parseColor("#CCCCCC"))
-                setPadding(6, 0, 6, 0)
-            })
-        }
-        dots.forEach { b.dotsBanner.addView(it) }
-    }
-
-    private fun updateDots(pos: Int) {
-        val layout = b.dotsBanner
-        for (i in 0 until layout.childCount) {
-            (layout.getChildAt(i) as? TextView)?.setTextColor(
-                if (i == pos) Color.parseColor("#6200EE") else Color.parseColor("#CCCCCC")
-            )
-        }
-    }
-
     // ── 跑马灯 ────────────────────────────────────────────────────────────────
 
-    /** 让 Marquee 跑起来 — 需要选中才能自动滚动 */
     private fun setupMarquee() {
         b.tvMarquee.isSelected = true
     }
@@ -109,12 +79,12 @@ class HomeFragment : Fragment() {
         vm.isLoading.observe(viewLifecycleOwner) { loading ->
             b.progressWeather.visibility = if (loading) View.VISIBLE else View.GONE
         }
-        vm.error.observe(viewLifecycleOwner) { err ->
+        vm.errorMessage.observe(viewLifecycleOwner) { err ->
             b.tvError.visibility = if (err != null) View.VISIBLE else View.GONE
             if (err != null) b.tvError.text = err
         }
         vm.weatherDays.observe(viewLifecycleOwner) { days ->
-            weatherAdapter.submit(days)
+            weatherAdapter.submitList(days)
         }
     }
 
@@ -131,13 +101,17 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() { super.onDestroyView(); _b = null }
 
-    // ── 天气列表适配器 ────────────────────────────────────────────────────────
+    // ── WeatherAdapter — ListAdapter + DiffUtil ─────────────────────────────────
 
-    inner class WeatherAdapter(private val onClick: (DayWeather) -> Unit)
-        : RecyclerView.Adapter<WeatherAdapter.VH>() {
+    class WeatherAdapter(private val onClick: (DayWeather) -> Unit)
+        : ListAdapter<DayWeather, WeatherAdapter.VH>(DiffCallback) {
 
-        private var items = listOf<DayWeather>()
-        fun submit(list: List<DayWeather>) { items = list; notifyDataSetChanged() }
+        companion object {
+            val DiffCallback = object : DiffUtil.ItemCallback<DayWeather>() {
+                override fun areItemsTheSame(old: DayWeather, new: DayWeather) = old.date == new.date
+                override fun areContentsTheSame(old: DayWeather, new: DayWeather) = old == new
+            }
+        }
 
         inner class VH(val b: ItemWeatherBinding) : RecyclerView.ViewHolder(b.root) {
             fun bind(d: DayWeather) = with(b) {
@@ -153,7 +127,6 @@ class HomeFragment : Fragment() {
         override fun onCreateViewHolder(p: ViewGroup, v: Int) = VH(
             ItemWeatherBinding.inflate(LayoutInflater.from(p.context), p, false)
         )
-        override fun onBindViewHolder(h: VH, pos: Int) = h.bind(items[pos])
-        override fun getItemCount() = items.size
+        override fun onBindViewHolder(h: VH, pos: Int) = h.bind(getItem(pos))
     }
 }

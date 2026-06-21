@@ -31,7 +31,7 @@ class KnowledgeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = KnowledgePageAdapter(KnowledgeData.allPages) { page ->
+        val adapter = KnowledgePageAdapter { page ->
             if (page.id == "mvvm-demo") {
                 startActivity(Intent(requireContext(), PostListActivity::class.java))
                 return@KnowledgePageAdapter
@@ -40,6 +40,7 @@ class KnowledgeFragment : Fragment() {
                 putExtra(DetailActivity.EXTRA_PAGE_ID, page.id)
             })
         }
+        adapter.submitList(KnowledgeData.allPages)
         b.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             this.adapter = adapter

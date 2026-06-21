@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- FileProvider 路径配置 — 拍照时存储临时照片 -->
 <paths>
+    <!-- 头像拍照缓存 -->
     <cache-path name="avatar_cache" path="avatars/" />
+    <!-- 友盟分享图片缓存 -->
+    <external-files-path name="umeng_share" path="umeng_cache/" />
+    <external-files-path name="share_image" path="." />
 </paths>

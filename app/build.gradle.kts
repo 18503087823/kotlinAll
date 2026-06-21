@@ -13,6 +13,9 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
+        // QQ 互联 SDK 需要的占位符（值来自 UmengShareConfig）
+        manifestPlaceholders["qqappid"] = "1112440639"
     }
 
     buildTypes {
@@ -75,4 +78,25 @@ dependencies {
     // ── 图片加载 ──
     // Coil：Kotlin 优先的图片加载库（轻量，配合协程）
     implementation("io.coil-kt:coil:2.5.0")
+
+    // ── 图表库：MPAndroidChart — K 线/折线/柱状/饼图 ──
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+    // ── 高德地图导航 SDK ──
+    // navi-3dmap = 导航+3D地图+定位+搜索一体包，不要单独引入 location 和 search
+    implementation("com.amap.api:navi-3dmap:+")
+
+    // ── 友盟分享 SDK ──
+    // 基础库（必选）
+    implementation("com.umeng.umsdk:common:+")
+    implementation("com.umeng.umsdk:asms:+")
+    // 分享核心
+    implementation("com.umeng.umsdk:share-core:+")
+    // 微信分享 — 注意 maven 名是 share-wx 不是 share-wechat
+    implementation("com.umeng.umsdk:share-wx:+")
+    implementation("com.tencent.mm.opensdk:wechat-sdk-android:+")
+    // QQ分享
+    implementation("com.umeng.umsdk:share-qq:+")
+    // QQ 互联官方 jar（手动下载放 app/libs/）
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 }

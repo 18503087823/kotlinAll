@@ -4,12 +4,14 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
-import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinlearn.R
 import com.example.kotlinlearn.databinding.ActivityPostListBinding
@@ -112,8 +114,8 @@ class PostListActivity : AppCompatActivity() {
         viewModel.isLoading.observe(this) { loading ->
             // apply：批量配置 ProgressBar 的可见性
             binding.progressBar.apply {
-                visibility = if (loading) android.view.View.VISIBLE
-                             else android.view.View.GONE
+                visibility = if (loading) View.VISIBLE
+                             else View.GONE
             }
         }
 
@@ -121,12 +123,12 @@ class PostListActivity : AppCompatActivity() {
         viewModel.errorMessage.observe(this) { error ->
             if (error != null) {
                 // 有错误 → 显示错误布局
-                binding.layoutError.visibility = android.view.View.VISIBLE
+                binding.layoutError.visibility = View.VISIBLE
                 binding.tvError.text = error
                 // 重试按钮
                 binding.btnRetry.setOnClickListener { viewModel.loadPosts() }
             } else {
-                binding.layoutError.visibility = android.view.View.GONE
+                binding.layoutError.visibility = View.GONE
             }
         }
     }
@@ -136,60 +138,37 @@ class PostListActivity : AppCompatActivity() {
     // ═══════════════════════════════════════════════════════════════════════════
 
     /**
-     * ## Post 列表适配器（使用 ListAdapter + DiffUtil）
-     *
-     * `ListAdapter` 是 RecyclerView 的高效基类：
-     * - 内置 DiffUtil → 自动计算新旧列表差异 → 局部刷新
-     * - `submitList()` → 提交新列表，后台线程计算差异
-     *
-     * 如果用普通的 RecyclerView.Adapter，需要手动调用 notifyDataSetChanged()
-     * → 全量刷新，性能差且没有动画。
+     * ## Post 列表适配器 — ListAdapter + DiffUtil
      */
     class PostAdapter(
         private val onClick: (Post) -> Unit
-    ) : RecyclerView.Adapter<PostAdapter.VH>() {
+    ) : ListAdapter<Post, PostAdapter.VH>(DiffCallback) {
 
-        /** 内部可变列表 */
-        private var items = listOf<Post>()
-
-        fun submitList(list: List<Post>) {
-            items = list
-            notifyDataSetChanged()
+        companion object {
+            val DiffCallback = object : DiffUtil.ItemCallback<Post>() {
+                override fun areItemsTheSame(old: Post, new: Post) = old.id == new.id
+                override fun areContentsTheSame(old: Post, new: Post) = old == new
+            }
         }
 
         inner class VH(val b: ItemPostBinding) : RecyclerView.ViewHolder(b.root) {
-            fun bind(post: Post) {
-                // with：批量操作 binding 内的控件
-                with(b) {
-                    tvTitle.text = post.title
-                    tvBody.text = post.body
-                    tvId.text = "#${post.id}"
-
-                    // 根据 id 动态改变圆形背景色
-                    val circle = ResourcesCompat.getDrawable(
-                        root.resources, R.drawable.bg_circle, null
-                    )!!.mutate()
-                    // id 不同 → 颜色深浅不同（用 HSL 微调）
-                    val hue = ((post.id * 37) % 360).toFloat()
-                    circle.setTint(Color.HSVToColor(floatArrayOf(hue, 0.6f, 0.7f)))
-                    tvId.background = circle
-
-                    root.setOnClickListener { onClick(post) }
-                }
+            fun bind(post: Post) = with(b) {
+                tvTitle.text = post.title
+                tvBody.text = post.body
+                tvId.text = "#${post.id}"
+                val circle = ResourcesCompat.getDrawable(root.resources, R.drawable.bg_circle, null)!!.mutate()
+                val hue = ((post.id * 37) % 360).toFloat()
+                circle.setTint(Color.HSVToColor(floatArrayOf(hue, 0.6f, 0.7f)))
+                tvId.background = circle
+                root.setOnClickListener { onClick(post) }
             }
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-            val binding = ItemPostBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            )
+            val binding = ItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             return VH(binding)
         }
 
-        override fun onBindViewHolder(holder: VH, position: Int) {
-            holder.bind(items[position])
-        }
-
-        override fun getItemCount(): Int = items.size
+        override fun onBindViewHolder(holder: VH, position: Int) = holder.bind(getItem(position))
     }
 }

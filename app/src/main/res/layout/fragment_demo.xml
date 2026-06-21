@@ -26,5 +26,19 @@
         android:id="@+id/btnWeatherDetail" android:layout_width="220dp"
         android:layout_height="54dp" android:text="天气详情 (今日)"
         android:textColor="#FFF" android:backgroundTint="#0D47A1"
+        app:cornerRadius="12dp" android:textSize="15sp"
+        android:layout_marginBottom="16dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnChartDemo" android:layout_width="220dp"
+        android:layout_height="54dp" android:text="📈 图表库演示"
+        android:textColor="#FFF" android:backgroundTint="#1A237E"
+        app:cornerRadius="12dp" android:textSize="15sp"
+        android:layout_marginBottom="16dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNaviDemo" android:layout_width="220dp"
+        android:layout_height="54dp" android:text="🚗 地图导航演示"
+        android:textColor="#FFF" android:backgroundTint="#FF6F00"
         app:cornerRadius="12dp" android:textSize="15sp" />
 </LinearLayout>

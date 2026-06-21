@@ -4,7 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import com.amap.api.location.AMapLocationClient
+import com.amap.api.maps.MapsInitializer
 import com.example.kotlinlearn.databinding.ActivitySplashBinding
+import com.example.kotlinlearn.ui.profile.UmengShareConfig
+import com.example.kotlinlearn.ui.profile.UmengShareHelper
+import com.umeng.commonsdk.UMConfigure
 import kotlinx.coroutines.*
 
 // ╔══════════════════════════════════════════════════════════════════════════════╗
@@ -33,8 +38,26 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 初始化 SharedPreferences（后续所有页面直接使用 PreferenceManager）
+        // 初始化 SharedPreferences
         PreferenceManager.init(this)
+
+        // 高德地图 SDK 隐私合规（v11 强制，必须在任何地图/定位 API 前调用）
+        MapsInitializer.updatePrivacyShow(this, true, true)
+        MapsInitializer.updatePrivacyAgree(this, true)
+        AMapLocationClient.updatePrivacyShow(this, true, true)
+        AMapLocationClient.updatePrivacyAgree(this, true)
+
+        // 初始化友盟分享 SDK
+        if (UmengShareConfig.isConfigured) {
+            UMConfigure.init(
+                this,
+                UmengShareConfig.UMENG_APP_KEY,
+                "umeng",
+                UMConfigure.DEVICE_TYPE_PHONE,
+                ""
+            )
+            UmengShareHelper.init(this)
+        }
 
         // ── 第 1 步：播放启动动画 ──
         playSplashAnimation()

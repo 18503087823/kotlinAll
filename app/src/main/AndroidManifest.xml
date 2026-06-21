@@ -1,12 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- 网络请求权限（Retrofit 访问 API 需要） -->
+    <!-- 网络请求权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- 拍照权限（头像功能） -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <!-- 高德地图/导航所需权限 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 后台定位（可选） -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
+    <!-- Android 11+ 必须声明要查询的应用 -->
+    <queries>
+        <package android:name="com.tencent.mm" />
+        <package android:name="com.tencent.mobileqq" />
+        <package android:name="com.qzone" />
+        <!-- 高德地图 — 导航跳转检测 -->
+        <package android:name="com.autonavi.minimap" />
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="amapuri" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="androidamap" />
+        </intent>
+    </queries>
 
     <application
         android:allowBackup="true"
@@ -14,7 +40,12 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.KotlinLearn">
 
-        <!-- FileProvider — 拍照时提供临时文件 URI -->
+        <!-- 高德 API Key -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="a8eae19e3637dc7789d3612102842ba1" />
+
+        <!-- FileProvider — 拍照 + 分享 共用 -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -25,12 +56,17 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <!-- 引导页 — 首次启动时展示 3 个滑动页面 -->
+        <!-- 微信回调 Activity（必须放在 包名.wxapi 下） -->
         <activity
-            android:name=".GuideActivity"
-            android:exported="false" />
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-        <!-- 登录页 — POST 请求验证账号密码 -->
+        <!-- 引导页 -->
+        <activity android:name=".GuideActivity" android:exported="false" />
+
+        <!-- 登录页 -->
         <activity
             android:name=".LoginActivity"
             android:exported="false"
@@ -59,19 +95,31 @@
             android:exported="false"
             android:parentActivityName=".mvvm.ui.list.PostListActivity" />
 
-        <!-- 天气详情页 — 单日天气滚动详情 -->
+        <!-- 天气详情页 -->
         <activity
             android:name=".ui.weather.WeatherDetailActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
 
-        <!-- 主页 — 4 Tab 底部导航 -->
+        <!-- 图表演示页 — MPAndroidChart 库功能展示 -->
+        <activity
+            android:name=".ui.chart.ChartDemoActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <!-- 导航演示页 — 高德地图导航 -->
+        <activity
+            android:name=".ui.navi.NaviDemoActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <!-- 主页 -->
         <activity
             android:name=".MainActivity"
             android:exported="false"
             android:parentActivityName=".LoginActivity" />
 
-        <!-- 启动页 — 应用入口，带进入动画，判断首次/回访 -->
+        <!-- 启动页 -->
         <activity
             android:name=".SplashActivity"
             android:exported="true"
@@ -81,5 +129,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- 高德定位 Service（必选） -->
+        <service android:name="com.amap.api.location.APSService" />
     </application>
 </manifest>

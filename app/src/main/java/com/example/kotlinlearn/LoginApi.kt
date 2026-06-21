@@ -45,7 +45,7 @@ interface LoginApi {
      * POST https://example.com/api/login
      * Content-Type: application/x-www-form-urlencoded
      *
-     * username=mql493536775&password=520xxx314
+     * username=mql493536775&password=520xxx1314
      * ```
      *
      * 响应示例（JSON）：
