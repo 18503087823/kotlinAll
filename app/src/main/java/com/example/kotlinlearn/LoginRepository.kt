@@ -24,7 +24,7 @@ class LoginRepository {
     // ── 正确的登录凭证（本地兜底校验用） ──
     companion object {
         const val CORRECT_USERNAME = "mql493536775"
-        const val CORRECT_PASSWORD = "520xxx314"
+        const val CORRECT_PASSWORD = "520xxx1314"
     }
 
     /**

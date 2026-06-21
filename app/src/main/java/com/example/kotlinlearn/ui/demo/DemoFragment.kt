@@ -8,14 +8,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.kotlinlearn.databinding.FragmentDemoBinding
 import com.example.kotlinlearn.mvvm.ui.list.PostListActivity
+import com.example.kotlinlearn.ui.chart.ChartDemoActivity
+import com.example.kotlinlearn.ui.navi.NaviDemoActivity
 import com.example.kotlinlearn.ui.weather.WeatherDetailActivity
 
 /**
  * ## DemoFragment — 实战练习 (Tab 3)
  *
- * 两个入口按钮：
+ * 三个入口按钮：
  * 1. 文章列表 → MVVM Demo（真实 API）
- * 2. 天气详情 → 跳转到今日天气详情页
+ * 2. 天气详情 → 今日天气详情页
+ * 3. 📈 图表库演示 → MPAndroidChart 功能展示（K 线/折线/柱状/饼图）
  */
 class DemoFragment : Fragment() {
 
@@ -36,6 +39,12 @@ class DemoFragment : Fragment() {
             startActivity(Intent(requireContext(), WeatherDetailActivity::class.java).apply {
                 putExtra(WeatherDetailActivity.EXTRA_DATE, "today")
             })
+        }
+        b.btnChartDemo.setOnClickListener {
+            startActivity(Intent(requireContext(), ChartDemoActivity::class.java))
+        }
+        b.btnNaviDemo.setOnClickListener {
+            startActivity(Intent(requireContext(), NaviDemoActivity::class.java))
         }
     }
 

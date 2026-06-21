@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- activity_chart_demo.xml — MPAndroidChart 图表演示页（可滚动的多图表页） -->
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:clipToPadding="false"
+    android:paddingBottom="32dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- ═══ Toolbar ═══ -->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#1A237E"
+            app:titleTextColor="@android:color/white"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            app:navigationIconTint="@android:color/white"
+            app:title="📈 K 线图 &amp; 图表库演示" />
+
+        <!-- ═══ 1. K 线图（蜡烛图） ═══ -->
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="🕯 K 线图（CandleStickChart）"
+            android:textSize="16sp" android:textStyle="bold" android:textColor="#333"
+            android:layout_marginTop="16dp" android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="模拟 30 个交易日的 OHLC 数据，可缩放、拖拽、长按显示十字线"
+            android:textSize="12sp" android:textColor="#999"
+            android:layout_marginBottom="8dp" />
+
+        <com.github.mikephil.charting.charts.CandleStickChart
+            android:id="@+id/candleChart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="#FFFFFF"
+            android:layout_marginBottom="24dp" />
+
+        <!-- ═══ 2. 折线图 ═══ -->
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="📈 折线图（LineChart）— 收盘价走势 + 均线"
+            android:textSize="16sp" android:textStyle="bold" android:textColor="#333"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="双数据集：蓝色实线 = 每日收盘价、橙色虚线 = 5 日均线"
+            android:textSize="12sp" android:textColor="#999"
+            android:layout_marginBottom="8dp" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:background="#FFFFFF"
+            android:layout_marginBottom="24dp" />
+
+        <!-- ═══ 3. 成交量柱状图 ═══ -->
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="📊 成交量柱状图（BarChart）"
+            android:textSize="16sp" android:textStyle="bold" android:textColor="#333"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="红涨绿跌，柱高反映成交量大小"
+            android:textSize="12sp" android:textColor="#999"
+            android:layout_marginBottom="8dp" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:background="#FFFFFF"
+            android:layout_marginBottom="24dp" />
+
+        <!-- ═══ 4. 饼图 — 板块分布 ═══ -->
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="🥧 饼图（PieChart）— 模拟持仓分布"
+            android:textSize="16sp" android:textStyle="bold" android:textColor="#333"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="支持点击选中放大、图例切换、旋转手势"
+            android:textSize="12sp" android:textColor="#999"
+            android:layout_marginBottom="8dp" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChart"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:background="#FFFFFF" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

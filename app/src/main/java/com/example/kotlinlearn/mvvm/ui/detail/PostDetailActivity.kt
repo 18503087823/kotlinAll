@@ -45,12 +45,12 @@ class PostDetailActivity : AppCompatActivity() {
         // 用 apply 批量配置 Toolbar
         binding.toolbar.setNavigationOnClickListener { finish() }
 
-        // 获取 postId → 发出网络请求
+        // 获取 postId → 发出网络请求（取一次，重试复用）
         val postId = intent.getIntExtra(EXTRA_POST_ID, 1)
         viewModel.loadPost(postId)
 
         // 开始观察 LiveData
-        observeViewModel()
+        observeViewModel(postId)
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -63,7 +63,7 @@ class PostDetailActivity : AppCompatActivity() {
      * 与 PostListActivity 的模式完全一致：
      * post → 更新 UI / isLoading → 加载动画 / errorMessage → 错误提示
      */
-    private fun observeViewModel() {
+    private fun observeViewModel(postId: Int) {
         // ── 文章数据 ──
         viewModel.post.observe(this) { post ->
             binding.scrollContent.visibility = View.VISIBLE
@@ -86,10 +86,7 @@ class PostDetailActivity : AppCompatActivity() {
             if (error != null) {
                 binding.layoutError.visibility = View.VISIBLE
                 binding.tvError.text = error
-                binding.btnRetry.setOnClickListener {
-                    val postId = intent.getIntExtra(EXTRA_POST_ID, 1)
-                    viewModel.loadPost(postId)
-                }
+                binding.btnRetry.setOnClickListener { viewModel.loadPost(postId) }
             } else {
                 binding.layoutError.visibility = View.GONE
             }

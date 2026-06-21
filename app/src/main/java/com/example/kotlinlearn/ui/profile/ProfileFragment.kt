@@ -25,6 +25,7 @@ import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.example.kotlinlearn.LoginActivity
 import com.example.kotlinlearn.PreferenceManager
+import com.example.kotlinlearn.R
 import com.example.kotlinlearn.databinding.FragmentProfileBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -114,6 +115,7 @@ class ProfileFragment : Fragment() {
         // 菜单项
         b.itemCamera.setOnClickListener { openCamera() }
         b.itemGallery.setOnClickListener { openGallery() }
+        b.itemShare.setOnClickListener { doShare() }
         b.itemLogout.setOnClickListener { showLogoutDialog() }
     }
 
@@ -133,20 +135,13 @@ class ProfileFragment : Fragment() {
 
     // ── 拍照 ─────────────────────────────────────────────────────────────────
 
-    /** 先检查权限，有权限则直接拍照 */
+    /** 先检查权限，有权限则直接拍照，无权限则请求 */
     private fun openCamera() {
-        when {
-            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_GRANTED -> launchCamera()
-            shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
-                AlertDialog.Builder(requireContext())
-                    .setTitle("需要相机权限")
-                    .setMessage("拍照更换头像需要使用相机权限")
-                    .setPositiveButton("授权") { _, _ -> cameraPermissionLauncher.launch(Manifest.permission.CAMERA) }
-                    .setNegativeButton("取消", null)
-                    .show()
-            }
-            else -> cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+            == PackageManager.PERMISSION_GRANTED) {
+            launchCamera()
+        } else {
+            cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
         }
     }
 
@@ -168,6 +163,26 @@ class ProfileFragment : Fragment() {
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         galleryLauncher.launch(intent)
+    }
+
+    // ── 分享 ─────────────────────────────────────────────────────────────────
+
+    /** 弹出友盟分享面板 */
+    private fun doShare() {
+        if (!UmengShareConfig.isConfigured) {
+            Toast.makeText(requireContext(), "请先配置友盟 AppKey（见 UmengShareConfig.kt）", Toast.LENGTH_LONG).show()
+            return
+        }
+        UmengShareHelper.share(
+            activity = requireActivity(),
+            webUrl = "https://github.com/18503087823/kotlinAll",
+            title = "Kotlin 学习助手",
+            desc = "用 Kotlin 学习 Android 开发，包含 23 个知识点 + MVVM 实战，快来一起学习！",
+            thumbRes = R.mipmap.ic_launcher
+        ) { platform, success ->
+            val msg = if (success) "分享成功" else "分享取消"
+            Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+        }
     }
 
     // ── 处理头像：裁剪圆形 → 转文件 → 模拟上传 → 保存 URL → 显示 ──────────
